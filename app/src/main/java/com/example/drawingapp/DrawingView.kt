@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 
@@ -37,7 +38,7 @@ class DrawingView(context:Context,attrs: AttributeSet) : View(context,attrs) {
 
         //You can use this Paint object to specify various attributes for your drawing operations, such as color, stroke width, style, and more. For example, you can set the color using mCanvasPaint.setColor(color) and the stroke width using mCanvasPaint.setStrokeWidth(width)
         //The DITHER_FLAG is a flag used to enable dithering when drawing with the Paint object. Dithering is a technique used to simulate colors or smooth transitions in situations where the color palette or available colors are limited, such as when rendering graphics on devices with a restricted color depth. Dithering can help reduce visual artifacts and create smoother gradients or transitions between colors
-        mBrushSize=20.toFloat()
+        //mBrushSize=20.toFloat()
 
     }
 
@@ -128,6 +129,19 @@ class DrawingView(context:Context,attrs: AttributeSet) : View(context,attrs) {
         invalidate()
         return true
 
+    }
+
+    //Preparing the BrushSizeSelector and How to Use Display Metrics
+    fun setSizeForBrush(newSize:Float){
+        //mBrushSize = TypedValue.applyDimension(: This line assigns a new value to the mBrushSize variable. It calculates the brush size based on the newSize parameter and the device's display metrics.
+        //
+        //TypedValue.applyDimension(: This is a method that converts an arbitrary size value (in this case, newSize) from one unit to another based on the device's display metrics. It's often used to convert sizes from device-independent pixels (dp) to actual pixel values (px).
+        //
+        //TypedValue.COMPLEX_UNIT_DIP, newSize, resources.displayMetrics: Here, you specify the unit of the newSize (DIP, which is Density-Independent Pixels), the newSize value itself, and the display metrics of the device. This information is used to perform the conversion
+        mBrushSize=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+            newSize,resources.displayMetrics
+        )
+        mDrawPaint!!.strokeWidth=mBrushSize
     }
 
 
