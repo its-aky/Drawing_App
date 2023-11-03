@@ -19,6 +19,8 @@ class DrawingView(context:Context,attrs: AttributeSet) : View(context,attrs) {
     private var color = Color.BLACK
     private var canvas: Canvas?=null
 
+    //Keeping/hold the drawn path on the screen
+    private val mPaths=ArrayList<CustomPath>()
     init{
         setUpDrawing()
     }
@@ -58,6 +60,12 @@ class DrawingView(context:Context,attrs: AttributeSet) : View(context,attrs) {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawBitmap(mCanvasBitmap!!,0f,0f,mCanvasPaint)
+
+        for(path in mPaths){
+            mDrawPaint!!.strokeWidth=path.brushThickness
+            mDrawPaint!!.color=path.color
+            canvas.drawPath(path,mDrawPaint!!)
+        }
 
         //canvas is a Canvas object. It's the surface where you want to draw graphics, and it's often associated with the display or a Bitmap that you want to draw onto.
         //
@@ -111,6 +119,7 @@ class DrawingView(context:Context,attrs: AttributeSet) : View(context,attrs) {
             }
 
             MotionEvent.ACTION_UP->{
+                mPaths.add(mDrawPath!!)
                 mDrawPath=CustomPath(color,mBrushSize)
             }
 
