@@ -6,18 +6,46 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.example.drawingapp.DrawingView
-        android:id="@+id/drawing_view"
+    <!--A FrameLayout is a type of ViewGroup in Android used to organize and manage the positioning of child views within a simple, rectangular frame. It's one of the simplest layout containers available in Android and is often used when you want to display a single child view on top of others or when you want to create a placeholder for fragment transactions
+    For adding images and writing over them we will need a Frame layout
+    and DrawingView will be put inside it
+    -->
+
+    <FrameLayout
+        android:id="@+id/fl_drawing_view_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="5dp"
+        android:padding="1dp"
         android:background="@drawable/background_drawing_view_layout"
         app:layout_constraintBottom_toTopOf="@id/ll_paint_colors"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        >
 
-        />
+        <ImageView
+            android:id="@+id/iv_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image"
+            />
+
+        <com.example.drawingapp.DrawingView
+            android:id="@+id/drawing_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80FFFFFF"
+
+
+            />
+
+
+    </FrameLayout>
+
+
+
 
     <LinearLayout
         android:id="@+id/ll_paint_colors"
@@ -27,7 +55,7 @@
         app:layout_constraintBottom_toTopOf="@id/ib_brush"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/drawing_view"
+        app:layout_constraintTop_toBottomOf="@id/fl_drawing_view_container"
         >
 
 
