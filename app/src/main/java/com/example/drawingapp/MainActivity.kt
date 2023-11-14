@@ -83,4 +83,15 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
+    //The 293.Permissions Demo taught the different permission requirements
+    //294th lecture told about alertDialogs like Snackbar and CustomDialogs
+    //Also the difference between Toast and Snackbar
+
+    //For detailed code (the whole new project) refer the github link given in the lecture and documentation
+
+
+
+    
+
 }
