@@ -2,9 +2,12 @@ package com.example.drawingapp
 
 import android.Manifest
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -20,6 +23,20 @@ class MainActivity : AppCompatActivity() {
     private var drawingView:DrawingView?=null
     private var mImageButtonCurrentPaint:ImageButton?=null
 
+    val openGalleryLauncher:ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            result->
+            if (result.resultCode == RESULT_OK && result.data != null){
+                //process the data
+                //Todo 4 if the data is not null reference the imageView from the layout
+                val imageBackground: ImageView = findViewById(R.id.iv_background)
+                //Todo 5: set the image uri received
+                //uri is the path to a particular file in a device
+                imageBackground.setImageURI(result.data?.data)
+            }
+
+        }
+
     val requestPermission: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             permissions.entries.forEach {
@@ -33,6 +50,11 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG
                     ).show()
                     //perform operation
+                    //Todo 1: create an intent to pick image from external storage
+                    val pickIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                    //Todo 6: using the intent launcher created above launch the pick intent
+
+                    openGalleryLauncher.launch(pickIntent)
                 } else {
                     //Todo 4: Displaying another toast if permission is not granted and this time focus on
                     //    Read external storage
