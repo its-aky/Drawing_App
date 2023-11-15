@@ -102,6 +102,12 @@ class MainActivity : AppCompatActivity() {
         ibUndo.setOnClickListener {
             drawingView?.onClickUndo()
         }
+
+        val ibRedo: ImageButton = findViewById(R.id.ib_redo)
+
+        ibRedo.setOnClickListener {
+            drawingView?.onClickRedo()
+        }
     }
 
     //Creating the opening dialog for the brush size selector
