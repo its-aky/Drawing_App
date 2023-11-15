@@ -22,10 +22,20 @@ class DrawingView(context:Context,attrs: AttributeSet) : View(context,attrs) {
 
     //Keeping/hold the drawn path on the screen
     private val mPaths=ArrayList<CustomPath>()
+    private val mUndoPaths=ArrayList<CustomPath>()
     init{
         setUpDrawing()
     }
 //init is a block used in Kotlin constructors for performing initialization code when an object of the class is created
+    fun onClickUndo() {
+        if (mPaths.size > 0) {
+
+            mUndoPaths.add(mPaths.removeAt(mPaths.size - 1))//removeAt returns the index value inside it
+            invalidate() // Invalidate the whole view. If the view is visible
+        }
+    }
+
+
     private fun setUpDrawing(){
         mDrawPaint=Paint()
         mDrawPath=CustomPath(color,mBrushSize)
